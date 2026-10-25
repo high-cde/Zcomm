@@ -7,39 +7,48 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'JetBrains Mono', monospace; background-color: #020503; color: #00ff88; overflow-x: hidden; }
+        body { font-family: 'JetBrains Mono', monospace; background-color: #010302; color: #00ff88; overflow-x: hidden; }
         .font-pixel { font-family: 'VT323', monospace; }
         .glitch { position: relative; display: inline-block; }
-        .terminal-box { background: rgba(0, 15, 5, 0.95); border: 1px solid #00ff88; box-shadow: 0 0 25px rgba(0, 255, 136, 0.15); }
+        .terminal-box { background: rgba(0, 12, 4, 0.95); border: 1px solid #00ff88; box-shadow: 0 0 25px rgba(0, 255, 136, 0.15); }
         .neon-border { border: 1px solid rgba(0, 255, 136, 0.4); box-shadow: 0 0 15px rgba(0, 255, 136, 0.1); }
-        .scanline { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(0, 255, 136, 0.04), rgba(0, 255, 136, 0.01), rgba(0, 255, 136, 0.04)); background-size: 100% 4px, 6px 100%; }
+        .scanline { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(0, 255, 136, 0.05), rgba(0, 255, 136, 0.01), rgba(0, 255, 136, 0.05)); background-size: 100% 4px, 6px 100%; }
+        .tab-btn.active { background-color: #00ff88; color: #000; font-weight: bold; box-shadow: 0 0 15px rgba(0,255,136,0.5); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col scanline selection:bg-emerald-500 selection:text-black">
 
-    <!-- TOP BAR -->
-    <header class="border-b border-emerald-500/30 bg-black/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex justify-between items-center text-xs">
+    <!-- TOP BAR & MENU -->
+    <header class="border-b border-emerald-500/30 bg-black/95 backdrop-blur sticky top-0 z-50 px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3 text-xs">
         <div class="flex items-center gap-3">
             <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping"></span>
-            <span class="font-bold text-emerald-300 tracking-wider">ZCOMM // RAPTOR ECO-PROTECTION NODE</span>
+            <span class="font-bold text-emerald-300 tracking-wider">ZCOMM // ECO-RAPTOR NODE v4</span>
         </div>
-        <div class="flex items-center gap-4">
-            <span id="user-identity-badge" class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700 font-pixel text-sm">USER: RANGER_01</span>
-            <span id="room-identity-badge" class="px-2 py-0.5 rounded bg-emerald-950 text-cyan-400 border border-cyan-800 font-pixel text-sm">ROOM: #RAPTOR-WATCH</span>
+        
+        <!-- MENU DI NAVIGAZIONE ADATTATO -->
+        <div class="flex flex-wrap gap-2 justify-center">
+            <button onclick="switchTab('chat')" id="btn-tab-chat" class="tab-btn active px-3 py-1 rounded border border-emerald-500/50 text-xs transition">💬 Chat E2E</button>
+            <button onclick="switchTab('raptor')" id="btn-tab-raptor" class="tab-btn px-3 py-1 rounded border border-emerald-500/50 text-xs transition">🦉 Sensori Rapaci</button>
+            <button onclick="switchTab('cams')" id="btn-tab-cams" class="tab-btn px-3 py-1 rounded border border-emerald-500/50 text-xs transition">📹 Eco-Cams IR</button>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <span id="user-identity-badge" class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700 font-pixel text-sm">RANGER: 01</span>
+            <span id="room-identity-badge" class="px-2 py-0.5 rounded bg-emerald-950 text-cyan-400 border border-cyan-800 font-pixel text-sm">#RAPTOR</span>
         </div>
     </header>
 
     <!-- HERO SECTION -->
-    <section class="max-w-6xl mx-auto px-6 py-8 text-center">
-        <h1 class="text-4xl md:text-6xl font-bold tracking-widest text-emerald-400 mb-3 glitch">
+    <section class="max-w-6xl mx-auto px-6 py-6 text-center">
+        <h1 class="text-3xl md:text-5xl font-bold tracking-widest text-emerald-400 mb-2 glitch">
             ZCOMM // WILDLIFE DEFENSE
         </h1>
-        <p class="text-emerald-300/80 max-w-2xl mx-auto text-xs md:text-sm mb-6">
-            Rete sovrana di bioacustica e telemetria protetta per la salvaguardia e il monitoraggio dei rapaci notturni e diurni tramite driver ZLang nativi.
+        <p class="text-emerald-300/80 max-w-2xl mx-auto text-xs md:text-sm mb-4">
+            Rete di telemetria bioacustica protetta per la salvaguardia dei rapaci notturni e diurni nell'Oltrepò Pavese tramite driver nativi ZLang.
         </p>
 
-        <!-- CONFIGURAZIONE NICK & STANZA ECOLOCALE -->
-        <div class="max-w-3xl mx-auto neon-border bg-black/90 p-4 rounded-lg flex flex-col md:flex-row gap-3 items-center justify-center">
+        <!-- CONFIGURAZIONE NICK & STANZA -->
+        <div class="max-w-3xl mx-auto neon-border bg-black/90 p-3 rounded-lg flex flex-col md:flex-row gap-3 items-center justify-center">
             <div class="flex items-center gap-2 w-full md:w-auto">
                 <span class="text-xs text-emerald-400 font-bold">OPERATOR:</span>
                 <input type="text" id="input-nickname" value="Ranger_Oltrepo" class="bg-black border border-emerald-500/50 rounded px-2 py-1 text-xs text-emerald-300 w-full outline-none focus:border-emerald-400">
@@ -49,60 +58,130 @@
                 <input type="text" id="input-room" value="Raptor-Watch" class="bg-black border border-cyan-500/50 rounded px-2 py-1 text-xs text-cyan-300 w-full outline-none focus:border-cyan-400">
             </div>
             <button onclick="applyIdentity()" class="w-full md:w-auto px-4 py-1 bg-emerald-900 hover:bg-emerald-800 text-black font-bold text-xs rounded transition">
-                Connetti Sensori
+                Aggiorna Nodo
             </button>
         </div>
     </section>
 
     <!-- MAIN INTERACTIVE INTERFACE -->
-    <main class="max-w-7xl mx-auto px-4 py-2 grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow mb-8">
+    <main class="max-w-7xl mx-auto px-4 py-2 grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow mb-8 w-full">
 
-        <!-- CHAT E SEGNALAZIONI BIOACUSTICHE (Colonna 1 & 2) -->
-        <section class="lg:col-span-2 terminal-box rounded-lg p-5 flex flex-col justify-between h-[500px]">
-            <div class="flex justify-between items-center border-b border-emerald-500/30 pb-3 mb-3 text-xs">
-                <span class="text-emerald-300 font-bold">🦉 BIO-ACOUSTIC FEED // ZLANG DRIVER ACTIVE</span>
-                <span id="active-room-display" class="text-cyan-400 font-pixel text-base">#Raptor-Watch</span>
-            </div>
+        <!-- SEZIONE PRINCIPALE DINAMICA (Colonna 1 & 2) -->
+        <section class="lg:col-span-2 terminal-box rounded-lg p-5 flex flex-col justify-between h-[520px]">
             
-            <div id="chat-messages" class="flex-grow overflow-y-auto space-y-3 text-xs font-mono text-emerald-300 pr-2">
-                <div class="bg-emerald-950/30 p-2 rounded border border-emerald-500/20">
-                    <span class="text-emerald-400 font-bold">[ZLANG_KERNEL]:</span> Driver sensore rapaci caricato. In ascolto su spettro 800Hz - 12kHz (Barbagianni, Allocchi, Falchi).
+            <!-- VISTA 1: CHAT E2E -->
+            <div id="view-chat" class="flex flex-col h-full justify-between">
+                <div class="flex justify-between items-center border-b border-emerald-500/30 pb-3 mb-3 text-xs">
+                    <span class="text-emerald-300 font-bold">💬 CRITTOGRAFIA E2E // CHAT ROOM</span>
+                    <span id="active-room-display" class="text-cyan-400 font-pixel text-base">#Raptor-Watch</span>
+                </div>
+                
+                <div id="chat-messages" class="flex-grow overflow-y-auto space-y-3 text-xs font-mono text-emerald-300 pr-2">
+                    <div class="bg-emerald-950/30 p-2 rounded border border-emerald-500/20">
+                        <span class="text-emerald-400 font-bold">[SYSTEM]:</span> Canale protetto attivo. Firma HMAC-SHA256 verificata.
+                    </div>
+                </div>
+
+                <div class="mt-3 flex gap-2 pt-2 border-t border-emerald-500/20">
+                    <input type="text" id="chat-input" placeholder="Invia messaggio cifrato..." class="w-full bg-black border border-emerald-500/40 rounded px-3 py-2 text-xs text-emerald-200 focus:border-emerald-400 outline-none" onkeypress="handleKey(event)">
+                    <button onclick="sendChatMessage()" class="px-5 py-2 bg-emerald-950 hover:bg-emerald-900 text-emerald-400 border border-emerald-500 text-xs font-bold transition rounded">Invia</button>
                 </div>
             </div>
 
-            <div class="mt-3 flex gap-2 pt-2 border-t border-emerald-500/20">
-                <input type="text" id="chat-input" placeholder="Segnala avvistamento o invia comando telemetria..." class="w-full bg-black border border-emerald-500/40 rounded px-3 py-2 text-xs text-emerald-200 focus:border-emerald-400 outline-none" onkeypress="handleKey(event)">
-                <button onclick="sendChatMessage()" class="px-5 py-2 bg-emerald-950 hover:bg-emerald-900 text-emerald-400 border border-emerald-500 text-xs font-bold transition rounded">Invia</button>
+            <!-- VISTA 2: SENSORI RAPACI (ZLANG DRIVER) -->
+            <div id="view-raptor" class="flex flex-col h-full justify-between hidden">
+                <div class="flex justify-between items-center border-b border-emerald-500/30 pb-3 mb-3 text-xs">
+                    <span class="text-emerald-300 font-bold">🦉 BIO-ACOUSTIC SENSORS // ZLANG KERNEL</span>
+                    <span class="text-cyan-400 font-pixel">FREQ: 800Hz - 12kHz</span>
+                </div>
+                
+                <div class="flex-grow overflow-y-auto space-y-3 text-xs font-mono text-emerald-300 pr-2">
+                    <div class="bg-black/80 p-3 rounded border border-emerald-500/30">
+                        <div class="flex justify-between text-[10px] text-emerald-500 mb-1">
+                            <span class="font-bold text-emerald-300">ESP32_Solar_BioNode #01</span>
+                            <span>STATUS: ACTIVE // 99.2% BATTERY</span>
+                        </div>
+                        <p class="text-emerald-200">> Rilevato pattern acustico: <span class="text-white font-bold">Tyto alba (Barbagianni)</span> - Confidenza: 91%</p>
+                    </div>
+                    <div class="bg-black/80 p-3 rounded border border-emerald-500/30">
+                        <div class="flex justify-between text-[10px] text-emerald-500 mb-1">
+                            <span class="font-bold text-emerald-300">ESP32_Solar_BioNode #02</span>
+                            <span>STATUS: ACTIVE // 85.0% BATTERY</span>
+                        </div>
+                        <p class="text-emerald-200">> Rilevato pattern acustico: <span class="text-white font-bold">Athene noctua (Civetta)</span> - Confidenza: 89%</p>
+                    </div>
+                </div>
+
+                <div class="mt-3 pt-2 border-t border-emerald-500/20 text-center">
+                    <button onclick="triggerSensorScan()" class="w-full py-2 bg-emerald-950 hover:bg-emerald-900 text-emerald-400 border border-emerald-500 text-xs font-bold transition rounded">
+                        🔄 Esegui Scansione Spettrale Forzata
+                    </button>
+                </div>
             </div>
+
+            <!-- VISTA 3: ECO-CAMS -->
+            <div id="view-cams" class="flex flex-col h-full justify-between hidden">
+                <div class="flex justify-between items-center border-b border-emerald-500/30 pb-3 mb-3 text-xs">
+                    <span class="text-emerald-300 font-bold">📹 ECO-CAMS STREAMING // WEBRTC P2P</span>
+                    <span class="text-cyan-400 font-pixel">RES: 1080P IR</span>
+                </div>
+                
+                <div class="flex-grow flex flex-col items-center justify-center bg-black/90 p-4 rounded border border-emerald-500/20 text-center">
+                    <div class="w-16 h-16 rounded-full bg-emerald-950/50 flex items-center justify-center border border-emerald-500/50 mb-3 animate-pulse">
+                        📷
+                    </div>
+                    <p class="text-xs text-emerald-300 mb-1 font-bold">Eco-Cam Nido 01 (Bosco Castagni - Garivalda)</p>
+                    <p class="text-[10px] text-emerald-500 mb-4">Infrarossi attivi. Nessun disturbo alla fauna.</p>
+                    <button onclick="toggleStream()" id="stream-btn" class="px-6 py-2 bg-emerald-800 hover:bg-emerald-700 text-black font-bold text-xs transition rounded shadow-lg">
+                        Avvia Flusso Video IR
+                    </button>
+                </div>
+            </div>
+
         </section>
 
-        <!-- ECO-CAMS & CONTROLLO DRIVER (Colonna 3) -->
+        <!-- PANNELLO LATERALE FISSO (Colonna 3) -->
         <section class="neon-border rounded-lg p-5 bg-black/90 flex flex-col justify-between space-y-4">
             <div>
                 <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-widest border-b border-emerald-500/30 pb-2 mb-4">
-                    📹 Eco-Cams & WebRTC Stream
+                    ⚡ Telemetria & Controlli
                 </h3>
-                <div id="call-status-box" class="mb-4 bg-emerald-950/20 p-4 rounded border border-emerald-500/20 text-center">
-                    <span id="call-state-text" class="text-xs text-emerald-400 block mb-3">Eco-Cam Nido 01: In standby</span>
-                    <button onclick="toggleCall()" id="call-btn" class="w-full py-2 bg-emerald-800 hover:bg-emerald-700 text-black font-bold text-xs transition rounded shadow-lg">
-                        Avvia Streaming Nido IR
-                    </button>
+
+                <!-- Stato Rapace Rapido -->
+                <div class="mb-4 bg-emerald-950/20 p-3 rounded border border-emerald-500/20">
+                    <span class="text-[10px] text-emerald-400 uppercase tracking-wider block mb-1">Stato Sensori Attivi</span>
+                    <p class="text-xs text-emerald-200 font-bold">2 Nodi Solari Online</p>
+                    <p class="text-[10px] text-emerald-500 mt-1">Ultimo segnale: 2 min fa</p>
                 </div>
+
                 <div class="bg-black p-3 rounded border border-emerald-500/20 text-[11px] space-y-1 font-pixel text-emerald-400">
-                    <p>> DRIVER: raptor_acoustic_node</p>
+                    <p>> DRIVER: raptor_acoustic</p>
+                    <p>> PROTOCOL: ZComm E2E</p>
                     <p>> ENCRYPTION: HMAC-SHA256</p>
-                    <p>> REGION: Oltrepò Pavese Hills</p>
+                    <p>> NODE: vmi3082470</p>
                 </div>
             </div>
-            <div class="text-[10px] text-emerald-600 text-center font-pixel">
-                ZDOS Sovereign Environmental Protection
+
+            <div class="text-[10px] text-emerald-600 text-center font-pixel border-t border-emerald-500/20 pt-3">
+                ZDOS Sovereign Infrastructure // Garivalda
             </div>
         </section>
+
     </main>
 
+    <!-- SCRIPT GESTIONE TAB & INTERATTIVITÀ -->
     <script>
         let currentNick = "Ranger_Oltrepo";
         let currentRoom = "Raptor-Watch";
+
+        function switchTab(tabName) {
+            ['chat', 'raptor', 'cams'].forEach(t => {
+                document.getElementById(`view-${t}`).classList.add('hidden');
+                document.getElementById(`btn-tab-${t}`).classList.remove('active');
+            });
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+            document.getElementById(`btn-tab-${tabName}`).classList.add('active');
+        }
 
         function applyIdentity() {
             const nickVal = document.getElementById('input-nickname').value.trim();
@@ -110,12 +189,12 @@
             if(nickVal) currentNick = nickVal;
             if(roomVal) currentRoom = roomVal;
 
-            document.getElementById('user-identity-badge').innerText = `USER: ${currentNick}`;
-            document.getElementById('room-identity-badge').innerText = `ROOM: #${currentRoom}`;
+            document.getElementById('user-identity-badge').innerText = `RANGER: ${currentNick}`;
+            document.getElementById('room-identity-badge').innerText = `#${currentRoom}`;
             document.getElementById('active-room-display').innerText = `#${currentRoom}`;
 
             const chatBox = document.getElementById('chat-messages');
-            chatBox.innerHTML += `<div class="bg-cyan-950/30 p-2 rounded border border-cyan-500/20 text-cyan-300"><span class="font-bold">[SYSTEM]:</span> Rete riconfigurata sul settore <span class="text-white font-bold">#${currentRoom}</span> con credenziali <span class="text-white font-bold">${currentNick}</span>.</div>`;
+            chatBox.innerHTML += `<div class="bg-cyan-950/30 p-2 rounded border border-cyan-500/20 text-cyan-300"><span class="font-bold">[SYSTEM]:</span> Nodo riconfigurato sul settore <span class="text-white font-bold">#${currentRoom}</span>.</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
@@ -131,7 +210,7 @@
                 <div class="bg-black/80 p-2.5 rounded border border-emerald-500/30">
                     <div class="flex justify-between text-[10px] text-emerald-600 mb-1">
                         <span class="font-bold text-emerald-300">${currentNick}</span>
-                        <span>${time} // SECURE_ECO_PACKET</span>
+                        <span>${time} // E2E SECURE</span>
                     </div>
                     <p class="text-emerald-200">${escapeHtml(text)}</p>
                 </div>
@@ -142,22 +221,22 @@
 
         function handleKey(e) { if(e.key === 'Enter') sendChatMessage(); }
 
-        let inStream = false;
-        function toggleCall() {
-            const btn = document.getElementById('call-btn');
-            const statusText = document.getElementById('call-state-text');
-            inStream = !inStream;
+        function triggerSensorScan() {
+            const chatBox = document.getElementById('chat-messages');
+            chatBox.innerHTML += `<div class="bg-emerald-950/30 p-2 rounded border border-emerald-500/20 text-emerald-400"><span class="font-bold">[ZLANG]:</span> Scansione spettrale completata. Nessun disturbo elettromagnetico rilevato. Nodi operativi.</div>`;
+            alert("Scansione spettrale dei sensori completata con successo!");
+        }
 
-            if(inStream) {
-                btn.innerText = "Interrompi Eco-Cam";
-                btn.className = "w-full py-2 bg-red-900 hover:bg-red-800 text-white font-bold text-xs transition rounded shadow-lg animate-pulse";
-                statusText.innerText = "Stato: Streaming Eco-Cam IR attivo (Nido 01)";
-                statusText.className = "text-xs text-red-400 block mb-3 font-bold";
+        let streaming = false;
+        function toggleStream() {
+            const btn = document.getElementById('stream-btn');
+            streaming = !streaming;
+            if(streaming) {
+                btn.innerText = "Interrompi Flusso IR";
+                btn.className = "px-6 py-2 bg-red-900 hover:bg-red-800 text-white font-bold text-xs transition rounded shadow-lg animate-pulse";
             } else {
-                btn.innerText = "Avvia Streaming Nido IR";
-                btn.className = "w-full py-2 bg-emerald-800 hover:bg-emerald-700 text-black font-bold text-xs transition rounded shadow-lg";
-                statusText.innerText = "Eco-Cam Nido 01: In standby";
-                statusText.className = "text-xs text-emerald-300 block mb-3";
+                btn.innerText = "Avvia Flusso IR";
+                btn.className = "px-6 py-2 bg-emerald-800 hover:bg-emerald-700 text-black font-bold text-xs transition rounded shadow-lg";
             }
         }
 
