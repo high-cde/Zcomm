@@ -1,0 +1,7 @@
+// ZLang Native Driver: Wildlife & Raptor Acoustic Telemetry v1.0
+driver raptor_acoustic_node {
+    device: 'ESP32_Solar_BioNode',
+    frequency_hz: [800, 12000],
+    sampling_rate: 44100,
+    encryption: 'HMAC-SHA256'
+}
